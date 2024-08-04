@@ -1,0 +1,14 @@
+services:
+  acpp:
+    image: krupkat/acpp:latest
+    build:
+      context: .
+    volumes:
+      - ~/.local/share/acpp:/kernel_cache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: cdi
+              device_ids:
+                - nvidia.com/gpu=all
