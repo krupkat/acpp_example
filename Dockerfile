@@ -46,12 +46,12 @@ FROM nvidia/cuda:12.5.1-base-ubuntu24.04 AS runtime
 COPY --from=dev /etc/apt/sources.list.d/llvm.list /etc/apt/sources.list.d/llvm.list
 COPY --from=dev /etc/apt/keyrings/llvm.gpg /etc/apt/keyrings/llvm.gpg
 
-RUN apt update && apt install -y clang-18
+RUN apt update && apt install -y --no-install-recommends clang-18
 
 ENV ACPP_APPDB_DIR=/kernel_cache
 
 COPY --from=dev /acpp /acpp
-COPY --from=dev /usr/local/cuda-12.5/nvvm/libdevice/libdevice.10.bc /usr/local/cuda-12.5/nvvm/libdevice/libdevice.10.bc
+COPY --from=dev /usr/local/cuda-12.5/nvvm/libdevice /usr/local/cuda-12.5/nvvm/libdevice
 
 COPY --from=dev /tmp/build/acpp-example /acpp-example
 
